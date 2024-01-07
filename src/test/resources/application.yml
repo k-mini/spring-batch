@@ -9,7 +9,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
+  batch:
+    job:
+      enabled: false
 ---
 spring:
   config:
@@ -42,12 +44,11 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-    job:
-      enabled: false # 배치 자동 실행 설정
-      names: ${job.name:NONE} # 배치를 선택해서 돌릴때
   jpa:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 #      table-prefix: SYSTEM_ # 배치 테이블 자동생성될 때 이름 prefix 설정
-
+#    job:
+#      names: ${job.name:NONE} # 배치를 선택해서 돌릴때
+#      enabled: false          # 배치 자동 실행 설정

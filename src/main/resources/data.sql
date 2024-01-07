@@ -1,5 +1,6 @@
 
-# JpaPagingItemReader 챕터
+-- JpaPagingItemReader 챕터
+
 insert into customer2 (id, username, age) values (1,'user1', 30);
 insert into customer2 (id, username, age) values (2,'user2', 31);
 insert into customer2 (id, username, age) values (3,'user3', 32);
