@@ -16,6 +16,8 @@ import io.springbatch.springbatchlecture.ch15.service.ApiService2;
 import io.springbatch.springbatchlecture.ch15.service.ApiService3;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ExecutionContext;
@@ -68,7 +70,8 @@ public class ApiStepConfiguration {
                 .<ProductVO, ApiRequestVO>chunk(chunkSize)
                 .reader(itemReader(null))
                 .processor(itemProcessor())
-                .writer(itemWriter())
+                .writer(itemWriter(null))
+//                .writer(itemWriter())
                 .build();
     }
 
@@ -134,7 +137,12 @@ public class ApiStepConfiguration {
     }
 
     @Bean
-    public ItemWriter<? super ApiRequestVO> itemWriter() throws Exception {
+    @StepScope
+    public ItemWriter<? super ApiRequestVO> itemWriter(
+            @Value("#{stepExecution['ExecutionContext']}") ExecutionContext executionContext
+    ) throws Exception {
+        System.out.println("ItemWriter 초기화 시작..");
+
         ClassifierCompositeItemWriter<ApiRequestVO> writer =
                 new ClassifierCompositeItemWriter<>();
 
@@ -153,6 +161,7 @@ public class ApiStepConfiguration {
             itemWriter.setLineAggregator(new DelimitedLineAggregator<>());
             itemWriter.setAppendAllowed(true);
             itemWriter.afterPropertiesSet();
+            itemWriter.open(executionContext);
             writerMap.put(String.valueOf(i), itemWriter);
         }
 

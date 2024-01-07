@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.quartz.JobBuilder.newJob;
 
 @RequiredArgsConstructor
-@Component
+//@Component
 public class FileJobRunner extends JobRunner {
 
     protected final Scheduler scheduler;
@@ -24,7 +24,7 @@ public class FileJobRunner extends JobRunner {
 
 
         JobDetail jobDetail = buildJobDetail(FileSchJob.class, "fileJob", "batch", new HashMap<>());
-        Trigger trigger = buildJobTrigger("0/50 * * * * ?");
+        Trigger trigger = buildJobTrigger("0/30 * * * * ?");
         jobDetail.getJobDataMap().put("requestDate", sourceArgs[0]);
 
         try {

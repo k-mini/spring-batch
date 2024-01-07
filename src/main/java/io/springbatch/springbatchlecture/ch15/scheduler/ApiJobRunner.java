@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
 @RequiredArgsConstructor
-@Component
+//@Component
 public class ApiJobRunner extends JobRunner {
 
     protected final Scheduler scheduler;

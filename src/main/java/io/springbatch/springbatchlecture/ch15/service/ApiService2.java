@@ -16,10 +16,9 @@ public class ApiService2 extends AbstractApiService {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://localhost:8082/api/product/2",
                 apiInfo, String.class);
         int statusCodeValue = responseEntity.getStatusCodeValue();
-        ApiResponseVO apiResponseVO = ApiResponseVO.builder()
+        return ApiResponseVO.builder()
                 .status(statusCodeValue)
                 .msg(responseEntity.getBody())
                 .build();
-        return apiResponseVO;
     }
 }

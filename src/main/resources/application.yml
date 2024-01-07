@@ -43,7 +43,7 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      enabled: false # 배치 자동 실행 설정
+      enabled: true # 배치 자동 실행 설정
       names: ${job.name:NONE} # 배치를 선택해서 돌릴때
   jpa:
     hibernate:
